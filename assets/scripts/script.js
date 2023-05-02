@@ -3,11 +3,7 @@ const burgerMenu = document.querySelector('#burger-menu');
 const backdrop = document.getElementById('backdrop');
 const headerUl = document.getElementById('header-ul');
 const headerLi = document.querySelectorAll('.header-ul__li');
-const minuniUl = document.getElementById('minuni-ul');
-const minuniLi = document.querySelectorAll('.li_minuni');
 
-let previousPage = 'acasă'
-let previousMinuniPage = 'piramidele-din-giza';
 
 // functions
 function toggleHeaderUl () {
@@ -17,8 +13,10 @@ function toggleHeaderUl () {
     if(headerUl.classList.contains('display-flex')) {
         backdrop.scrollIntoView();
         document.body.style.overflow = 'hidden';
+        console.log('hidden')
     } else {
         document.body.style.overflow = 'visible';
+        console.log('visible')
     }
     setTimeout(() => {
         headerUl.classList.toggle('width-70')
@@ -38,17 +36,9 @@ burgerMenu.addEventListener('click', toggleHeaderUl)
 backdrop.addEventListener('click', toggleHeaderUl)
 
 headerUl.addEventListener('click', event => {
-    if (event.target.tagName != 'LI') return;
+    if (event.target.tagName != 'A') return;
 
     toggleHeaderUl();
-
-    // changes sections and changes previousPage
-    const liValue = event.target.dataset.value;
-    const previousSection = document.getElementById(`${previousPage}`);
-    previousSection.classList.remove('display-block');
-    const currentSection = document.getElementById(`${liValue}`);
-    currentSection.classList.add('display-block');
-    previousPage = liValue;
 
     // updates Header UL visually
     headerLi.forEach(li => {
@@ -56,27 +46,6 @@ headerUl.addEventListener('click', event => {
             li.classList.add('active-li');
         } else {
             li.classList.remove('active-li');
-        }
-    })
-})
-
-minuniUl.addEventListener('click', event => {
-    if (event.target.tagName != 'LI') return;
-
-    const liTarget = event.target
-
-    minuniLi.forEach(li => {
-        if (li == liTarget) {
-            li.classList.add('active-li__minuni')
-            const minuneValue = liTarget.dataset.value;
-            const previousMinuniSection = document.getElementById(`${previousMinuniPage}`);
-            previousMinuniSection.classList.remove('display-block');
-            const currentMinuniSection = document.getElementById(`${minuneValue}`)
-            currentMinuniSection.classList.add('display-block');
-            previousMinuniPage = minuneValue;
-
-        } else {
-            li.classList.remove('active-li__minuni')
         }
     })
 })
